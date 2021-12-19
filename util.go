@@ -12,16 +12,16 @@ func isVuln(jar *zip.ReadCloser) bool {
 	var mgr *zip.File
 
 	for _, class := range jar.File {
-		if isMatch(class.Name, FATAL_CLASS[0]) {
+		if isStr(class.Name, FATAL_CLASS[0]) && isByt(readClass(class), SIGNATURES[:7]) {
 			return true
 		}
 
-		if isMatch(class.Name, FATAL_CLASS[1]) {
+		if isStr(class.Name, FATAL_CLASS[1]) {
 			mgr = class
 		}
 	}
 
-	if mgr != nil && isMatch(readClass(mgr), JNDI_ENABLED) {
+	if mgr != nil && isByt(readClass(mgr), SIGNATURES[7:]) {
 		return true
 	}
 

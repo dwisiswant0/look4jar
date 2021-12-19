@@ -2,7 +2,6 @@ package main
 
 const (
   POSSIBLE_VULN = "Possibly vulnerable '%s'"
-  JNDI_ENABLED  = "log4j2.enableJndiLookup"
   JAR_PATTERN   = "\\.[ejw]ar$"
   FOUND_JAR     = "Found JAR file: %s"
 
