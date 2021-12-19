@@ -10,9 +10,11 @@ Look for JAR files that vulnerable to [Log4j RCE](https://logging.apache.org/log
 
 It differs from some other tools that scan for vulnerable remote services by running trigger exploits such as track DNS pingbacks. **Look4jar** tried to find `JndiLookup.class` file in the java archive _(recursively)_, if yet any — then it will look for `log4j2.enableJndiLookup` in `JndiManager.class` file which it deems possibly vulnerable.
 
-## Install
+## Installation
 
-**[Go1.16+](https://go.dev/doc/install)** compiler should be installed & configured:
+- Download a prebuilt binary from [releases page](https://github.com/dwisiswant0/look4jar/releases/latest), unpack and run! or:
+- If you have **[Go1.16+](https://go.dev/doc/install)** compiler installed & configured:
+
 ```console
 $ go install dw1.io/look4jar@latest
 ```
