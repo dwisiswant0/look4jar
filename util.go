@@ -9,20 +9,23 @@ import (
 )
 
 func isVuln(jar *zip.ReadCloser) bool {
-	var mgr *zip.File
-
 	for _, class := range jar.File {
-		if isStr(class.Name, FATAL_CLASS[0]) && isByt(readClass(class), SIGNATURES[:7]) {
-			return true
-		}
+		i, s := 0, 0
+		for s < len(SIGNATURES) {
+			status, e := false, s+7
+			if isStr(class.Name, FATAL_CLASS[i]) {
+				status = !isByt(readClass(class), SIGNATURES[s:e])
+				if i == 0 {
+					status = isByt(readClass(class), SIGNATURES[s:e])
+				}
+			}
 
-		if isStr(class.Name, FATAL_CLASS[1]) {
-			mgr = class
-		}
-	}
+			if status {
+				return true
+			}
 
-	if mgr != nil && isByt(readClass(mgr), SIGNATURES[7:]) {
-		return true
+			i, s = i+1, s+7
+		}
 	}
 
 	return false
