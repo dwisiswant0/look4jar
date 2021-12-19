@@ -34,6 +34,7 @@ func check(wg *sync.WaitGroup, file string) {
 	if err != nil {
 		gologger.Error().Msgf(ERR_OPEN, aurora.Red(file))
 	}
+	defer read.Close()
 
 	if isVuln(read) {
 		gologger.Warning().Msgf(POSSIBLE_VULN, aurora.Yellow(file))

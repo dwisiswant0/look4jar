@@ -5,19 +5,19 @@ import (
 	"io/ioutil"
 )
 
-func readClass(file *zip.File) string {
+func readClass(file *zip.File) []byte {
 	read, err := file.Open()
 	if err != nil {
-		return ""
+		panic(err)
 	}
-	defer read.Close()
 
 	content, err := ioutil.ReadAll(read)
 	if err != nil {
-		return ""
+		panic(err)
 	}
+	defer read.Close()
 
-	return string(content)
+	return content
 }
 
 func readJar(file string) (*zip.ReadCloser, error) {
@@ -25,7 +25,6 @@ func readJar(file string) (*zip.ReadCloser, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer jar.Close()
 
 	return jar, nil
 }
